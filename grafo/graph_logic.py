@@ -44,3 +44,35 @@ def connected(graph, a, b):
     #             fila.append(v)
     # return False
     raise NotImplementedError("Implemente a função connected usando apenas listas.")
+def norm(x):
+        return x.strip().lower() if isinstance(x, str) else x
+    
+    if a is None or b is None:
+        return False
+    
+    a = norm(a)
+    b = norm(b)
+
+    nodes = set()
+    adj = {}
+    for u, neigh in graph.items():
+        u_norm = norm(u)
+        nodes.add(u_norm)
+        adj.setdefault(u_norm, [])
+        for v in neigh:
+            v_norm = norm(v)
+            nodes.add(v_norm)
+            adj[u_norm].append(v_norm)
+
+    if a not in nodes or b not in nodes:
+          return False
+
+    if a == b:
+        return True
+    
+    if b in adj.get(a, []):
+        return True
+    if a in adj.get(b, []):
+        return True
+    
+    return False
